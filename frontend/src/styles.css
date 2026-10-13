@@ -1,0 +1,40 @@
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+  .acceuil {
+  
+  }
+  .connexion{
+    background-image: url('assets/images/back.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh; /* Ajuste la hauteur de la section pour qu'elle corresponde à la hauteur de l'écran */
+}
+  .detail{
+    
+  }
+  .inscrit{
+ 
+  }
+  .profile{
+   
+  }
+  .recuperer{
+    
+    
+
+  }
+  .users{
+
+  }
+  .error{
+    
+  }
+  
+  
+  .listUsers{
+   
+  }
+
+
+

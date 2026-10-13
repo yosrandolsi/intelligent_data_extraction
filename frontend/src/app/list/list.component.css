@@ -1,0 +1,854 @@
+
+
+.get-position-btn {
+
+  background-color: rgb(253, 177, 122);
+  color: #080710;
+
+}
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #cce5ff; /* Bleu clair */
+}
+
+/* Style pour les lignes paires */
+.table-striped tbody tr:nth-child(even) {
+  background-color: #ffffff; /* Blanc */
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  width: 20%; /* Définissez la largeur de la première colonne à 20% de la largeur totale */
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 20%; /* Définissez la largeur de la deuxième colonne à 20% de la largeur totale */
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 20%; /* Définissez la largeur de la deuxième colonne à 20% de la largeur totale */
+}
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 30%; /* Définissez la largeur de la deuxième colonne à 20% de la largeur totale */
+}
+/* Ajoutez des règles similaires pour les autres colonnes si nécessaire */
+.table th,
+.table td {
+  width: 20%; /* Définissez la largeur de toutes les colonnes à 20% de la largeur totale */
+}
+
+.table tr {
+  background-color: white;
+  width: 100%; /* Couleur de fond par défaut pour toutes les lignes */
+  padding: 8px; 
+  
+}
+
+.table td {
+  padding: 1px; /* Adjust the padding to increase space between column content and borders */
+}
+
+
+
+.table th
+{
+ padding: px;
+ width: 100%; /* Adjust the padding to increase space between column content and borders */
+}
+.table tbody tr:hover {
+  background-color: #f2f2f2; /* Couleur de fond au survol */
+}
+
+
+.container {
+  position: relative;
+  align-items: center;
+  width: 1200px;
+  align-content: center;
+  padding: 30px;
+  padding-top: 10px;
+  margin-top: 50px;
+  margin-left: 120px; /* Ajoutez une marge supérieure pour déplacer le conteneur en dessous de la barre de navigation */
+}
+
+.backcontainer {
+  display: flex;
+  justify-content: center;
+  margin-left: 120px;
+  align-items: center;
+  margin-top: 50px; /* Ajoutez une marge supérieure pour déplacer le conteneur en dessous de la barre de navigation */
+}
+
+
+
+
+ 
+    
+    
+    
+   
+  
+   
+    .button .button__icon {
+      position: absolute;
+      transform: translateX(109px);
+      height: 100%;
+      width: 39px;
+      background-color: var(--bg-color-sub);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+    }
+    .input:focus {
+      outline: none;
+      background: linear-gradient(135deg, rgb(239, 247, 255) 0%, rgb(214, 229, 247) 100%);
+    }
+    
+   
+    .role-list {
+      display: flex;
+      list-style: none; /* Supprime les puces de la liste */
+      padding: 0; /* Supprime le remplissage par défaut */
+    }
+    
+    .role-list li {
+      margin-right: 10px; /* Espacement entre les éléments de liste */
+    }
+    
+    .role-selection-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150%; /* Ajustez la largeur selon vos besoins */
+      height: 150%; /* Ajustez la hauteur selon vos besoins */
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    
+    .role-selection {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    /* Style du select */
+select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box; /* Pour inclure le padding dans la largeur */
+}
+
+/* Style lorsque le select est en focus */
+select:focus {
+  outline: none;
+  border-color: #007bff; /* Couleur de la bordure lorsque le select est en focus */
+}
+
+
+
+
+.container-input {
+  position: relative;
+}
+
+.input {
+  width: 150px;
+  padding: 10px 0px 10px 40px;
+  border-radius: 9999px;
+  border: solid 1px #333;
+  transition: all .2s ease-in-out;
+  outline: none;
+  opacity: 0.8;
+}
+
+.container-input svg {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translate(0, -50%);
+}
+
+.input:focus {
+  opacity: 1;
+  width: 250px;}
+
+.table-frame {
+  border: 2px solid #ccc;
+
+  padding: 2px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 110%;
+  margin: 0 0 0 10%; 
+  margin-left: -50px;
+}
+
+
+
+
+*******************
+
+button{
+  margin-top: 50px;
+  width: 48%;
+  background-color:rgb(253, 177, 122);
+  color: #080710;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.valider{
+margin-top: 50px;
+width: 100%;
+background-color:rgb(253, 177, 122);
+color: #080710;
+padding: 15px 0;
+font-size: 18px;
+font-weight: 600;
+border-radius: 5px;
+cursor: pointer;
+}
+.rech{
+background-color:rgb(253, 177, 122);
+width: 120%;
+background-color:rgb(253, 177, 122);
+color: #080710;
+padding: 15px 0;
+font-size: 18px;
+font-weight: 600;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.edit-button {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: rgb(20, 20, 20);
+border: none;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+cursor: pointer;
+transition-duration: 0.3s;
+overflow: hidden;
+position: relative;
+text-decoration: none !important;
+}
+
+.edit-svgIcon {
+width: 17px;
+transition-duration: 0.3s;
+}
+
+.edit-svgIcon path {
+fill: white;
+}
+
+.edit-button:hover {
+width: 120px;
+border-radius: 50px;
+transition-duration: 0.3s;
+background-color: rgb(255, 69, 69);
+align-items: center;
+}
+
+.edit-button:hover .edit-svgIcon {
+width: 20px;
+transition-duration: 0.3s;
+transform: translateY(60%);
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+
+.edit-button::before {
+display: none;
+content: "Activate";
+color: white;
+transition-duration: 0.3s;
+font-size: 2px;
+}
+
+.edit-button:hover::before {
+display: block;
+padding-right: 10px;
+font-size: 13px;
+opacity: 1;
+transform: translateY(0px);
+transition-duration: 0.3s;
+}
+.delete-button {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: rgb(20, 20, 20);
+border: none;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+cursor: pointer;
+transition-duration: 0.3s;
+overflow: hidden;
+position: relative;
+}
+
+.delete-svgIcon {
+width: 15px;
+transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+fill: white;
+}
+
+.delete-button:hover {
+width: 90px;
+border-radius: 50px;
+transition-duration: 0.3s;
+background-color: rgb(255, 69, 69);
+align-items: center;
+}
+
+.delete-button:hover .delete-svgIcon {
+width: 20px;
+transition-duration: 0.3s;
+transform: translateY(60%);
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+
+.delete-button::before {
+display: none;
+content: "Delete";
+color: white;
+transition-duration: 0.3s;
+font-size: 2px;
+}
+
+.delete-button:hover::before {
+display: block;
+padding-right: 10px;
+font-size: 13px;
+opacity: 1;
+transform: translateY(0px);
+transition-duration: 0.3s;
+}
+.button-row {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px; /* Espacement entre les boutons et les champs de formulaire */
+}
+
+.delete-button, .edit-button {
+margin: 0 10px; /* Espacement entre les boutons */
+}
+button{
+margin-top: 50px;
+width: 100%;
+background-color: hsl(30, 80%, 50%);;
+color: #080710;
+padding: 15px 0;
+font-size: 18px;
+font-weight: 600;
+border-radius: 5px;
+cursor: pointer;
+}
+.edit-button {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: rgb(20, 20, 20);
+border: none;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+cursor: pointer;
+transition-duration: 0.3s;
+overflow: hidden;
+position: relative;
+text-decoration: none !important;
+}
+
+.edit-svgIcon {
+width: 17px;
+transition-duration: 0.3s;
+}
+
+.edit-svgIcon path {
+fill: white;
+}
+
+.edit-button:hover {
+width: 120px;
+border-radius: 50px;
+transition-duration: 0.3s;
+background-color:  hsl(30, 80%, 50%);
+align-items: center;
+}
+
+.edit-button:hover .edit-svgIcon {
+width: 20px;
+transition-duration: 0.3s;
+transform: translateY(60%);
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+
+.edit-button::before {
+display: none;
+content: "Activate";
+color: white;
+transition-duration: 0.3s;
+font-size: 2px;
+}
+
+.edit-button:hover::before {
+display: block;
+padding-right: 10px;
+font-size: 13px;
+opacity: 1;
+transform: translateY(0px);
+transition-duration: 0.3s;
+}
+.delete-button {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: rgb(20, 20, 20);
+border: none;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+cursor: pointer;
+transition-duration: 0.3s;
+overflow: hidden;
+position: relative;
+}
+
+.delete-svgIcon {
+width: 15px;
+transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+fill: white;
+}
+
+.delete-button:hover {
+width: 90px;
+border-radius: 50px;
+transition-duration: 0.3s;
+background-color:  hsl(30, 80%, 50%);
+align-items: center;
+}
+
+.delete-button:hover .delete-svgIcon {
+width: 20px;
+transition-duration: 0.3s;
+transform: translateY(60%);
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+
+.delete-button::before {
+display: none;
+content: "Delete";
+color: white;
+transition-duration: 0.3s;
+font-size: 2px;
+}
+
+.delete-button:hover::before {
+display: block;
+padding-right: 10px;
+font-size: 13px;
+opacity: 1;
+transform: translateY(0px);
+transition-duration: 0.3s;
+}
+.button-row {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px; /* Espacement entre les boutons et les champs de formulaire */
+}
+
+.delete-button, .edit-button {
+margin: 0 10px; /* Espacement entre les boutons */
+}
+button {
+width: 150px;
+height: 50px;
+cursor: pointer;
+display: flex;
+align-items: center;
+background: rgb(253, 177, 122);;
+border: none;
+border-radius: 5px;
+box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+background:  hsl(30, 80%, 50%);
+}
+
+button, button span {
+transition: 200ms;
+}
+
+button .text {
+transform: translateX(35px);
+color: white;
+font-weight: bold;
+}
+
+button .icon {
+position: absolute;
+border-left: 1px solid  hsl(30, 80%, 50%);
+transform: translateX(110px);
+height: 40px;
+width: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+button svg {
+width: 15px;
+fill: #eee;
+}
+
+button:hover {
+background:  hsl(30, 80%, 50%);
+}
+
+button:hover .text {
+color: transparent;
+}
+
+button:hover .icon {
+width: 150px;
+border-left: none;
+transform: translateX(0);
+}
+
+button:focus {
+outline: none;
+}
+
+button:active .icon svg {
+transform: scale(0.8);
+
+}
+
+.bold-icon {
+font-weight: bold; /* Définissez le poids de la police comme "bold" pour rendre l'icône en gras */
+}
+.custom-button {
+width: 100px;
+height: 40px;
+cursor: pointer;
+display: flex;
+align-items: center;
+background: white;
+margin-bottom: 10px;
+border: #1d61a2;
+border-radius: 10px;
+box-shadow: 1px 1px 3px #1d61a2;
+position: relative;
+}
+
+.custom-button, .custom-button span {
+transition: 200ms;
+}
+
+.custom-button .text {
+transform: translateX(35px);
+color: white;
+font-weight: bold;
+}
+
+.custom-button .icon {
+position: absolute;
+border-left: 1px solid rgba(0, 0, 0, 0);
+transform: translateX(110px);
+height: 40px;
+width: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.custom-button svg {
+width: 15px;
+fill: #eee;
+}
+
+.custom-button:hover {
+background: #1d61a2
+}
+
+.custom-button:hover .text {
+color: transparent;
+}
+
+.custom-button:hover .icon {
+width: 150px;
+border-left: none;
+transform: translateX(0);
+}
+
+
+
+
+.custom-button svg {
+width: 15px;
+fill: #eee;
+}
+.custom-button:focus {
+outline: none;
+}
+
+.custom-button:active .icon svg {
+transform: scale(0.8);
+}
+.custom-button .text {
+display: flex;
+justify-content: center;
+align-items: center;
+transform: translateX(0); /* Vous pouvez supprimer cette ligne si elle ne fait rien d'autre */
+color: #1d61a2;
+font-weight: bold;
+}
+
+
+button {
+  display: flex;
+  height: 3em;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee4b;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: none;
+  background: #fff;
+margin-top: 1px;
+  margin-bottom: 30px; /* Ajustement vers le haut */
+}
+
+button > svg {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 20px;
+  transition: all 0.4s ease-in;
+}
+
+button:hover > svg {
+  font-size: 1.2em;
+  transform: translateX(-5px);
+}
+
+button:hover {
+  box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+  transform: translateY(-2px);
+}
+.custom-header {
+  background-color: #1d61a2;
+  color: white;
+  border-radius: 5px; /* Optional: Change text color to ensure readability */
+}
+.custom-header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-users {
+  color: orange;
+}
+.add-role-button, .remove-role-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #1d61a2;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.add-role-button .edit-svgIcon, .remove-role-button .edit-svgIcon {
+  width: 20px;
+  fill: white;
+  transition-duration: 0.3s;
+}
+
+.add-role-button:hover, .remove-role-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(50, 205, 50); /* Vert pour Ajouter */
+  align-items: center;
+}
+
+.remove-role-button:hover {
+  background-color: rgb(255, 69, 69); /* Rouge pour Supprimer */
+}
+
+.add-role-button:hover .edit-svgIcon, .remove-role-button:hover .edit-svgIcon {
+  width: 25px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+.role-management-buttons {
+  display: flex;
+  justify-content: center; /* Alignement horizontal au centre */
+  margin-top: 10px; /* Espacement en haut */
+}
+
+.button-container {
+  display: flex; /* Utiliser flexbox pour aligner les boutons horizontalement */
+}
+
+/* Styles des boutons (add-role-button et remove-role-button) à ajouter selon les besoins */
+.add-role-button {
+  margin-right: 10px; /* Ajouter un espace de 10 pixels à droite du bouton */
+}
+.error {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 320px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: #EF665B;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px -3px #111;
+}
+
+.error__icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  margin-right: 8px;
+}
+
+.error__icon path {
+  fill: #fff;
+}
+
+.error__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+}
+
+.error__close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.error__close path {
+  fill: #fff;
+}
+.role-selection {
+  width: 350px; /* Ajoutez la largeur par défaut que vous souhaitez */
+}
+.role-management-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button-container {
+  margin-right: 20px; /* Espace entre chaque paire de boutons */
+}
+
+.admin-buttons {
+  margin-left: 20px; /* Ajustement pour aligner les boutons Admin avec les boutons Utilisateur */
+}
+
+.title-container {
+  position: relative;
+}
+
+.cancel-icon {
+  position: absolute;
+  top: -10px; /* Déplacer l'icône de 12 pixels vers le haut */
+  right: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  font-weight: bold; /* Rendre le texte en gras */
+  font-size: 18px; /* Augmenter la taille de la police */
+}
+
+
+.cancel-icon:hover {
+  transform: rotate(90deg);
+}
+
+.cancel-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #666;
+}
+
+.cancel-icon:hover svg {
+  fill: #1d61a2;
+}
+.save-cancel-buttons {
+  margin-left: 40px;
+  display: flex; /* Utiliser flexbox pour aligner les boutons horizontalement */
+  align-items: center; /* Aligner les boutons verticalement au centre */
+}
+
+.save-cancel-buttons .custom-button {
+  margin-right: -10px; /* Ajouter un espacement entre les boutons */
+}
+

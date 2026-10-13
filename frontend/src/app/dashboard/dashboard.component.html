@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row" >
+    <!-- Première colonne pour le premier graphique -->
+    <div class="col-md-6">
+      <div *ngIf="chartOptionsDoughnut" class="chart-container">
+        <div class="chart-wrapper">
+          <canvasjs-chart [options]="chartOptionsDoughnut"></canvasjs-chart>
+        </div>
+      </div>
+    </div>
+    <!-- Deuxième colonne pour le deuxième graphique -->
+    <div class="col-md-6">
+      <div *ngIf="chartOptionsBar" class="chart-container">
+        <div class="chart-wrapper">
+          <canvasjs-chart [options]="chartOptionsBar"></canvasjs-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Nouvelle ligne pour le troisième graphique -->
+  <div class="last"> <!-- Utilisation de la classe mt-3 pour réduire la marge entre les lignes -->
+    <div class="col-md-12">
+      <div *ngIf="chartOptions" class="chart-container">
+        <div class="chart-wrapper">
+          <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

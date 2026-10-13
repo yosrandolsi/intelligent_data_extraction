@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+  }
+  
+  .table-container {
+    width: 80%; /* Ajustez la largeur du tableau selon vos besoins */
+    margin-bottom: 20px; /* Ajoute un espace entre le tableau et les onglets */
+  }
+  
+  .table {
+    width: 120%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  .table thead th {
+    background-color: #1d61a2;
+    color: white;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .tabs-container {
+    display: flex;
+    justify-content: center;
+  }
+  .box:hover {
+    background-color: #c7f0d9;
+  }
+  .orange-text {
+    color: #3b85cc;;
+  }
+  

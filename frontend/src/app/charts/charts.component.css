@@ -1,0 +1,11 @@
+/* Dans votre fichier CSS */
+/* Cible le conteneur div */
+.charts-container {
+    width: 450px; /* Largeur personnalisée */
+  }
+  
+  /* Cible directement l'élément apx-chart */
+  apx-chart {
+    width: 100% !important; /* Largeur de 100% pour s'adapter à son conteneur */
+  }
+  

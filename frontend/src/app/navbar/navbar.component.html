@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<nav class="navbar">
+  <div style="display: flex; align-items: center;">
+    <img *ngIf="user.profileImg" [src]="user.profileImg" alt="Profile Picture" width="40" height="40" class="rounded-circle">
+    <p style="color: orange; margin-left: 10px;">{{ user.name + ' ' + user.lastName }}</p>
+
+  </div>
+  <div class="logout">
+    <a (click)="onLogout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <!-- Laissez cet espace vide pour une barre de navigation vide -->
+    </ul>
+  </div>
+</nav>
+
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="topnav" id="myTopnav">
+    <div class="topnav-content">
+      <img src="assets/images/centro.png" alt="Votre logo" width="300px" height="70px" style="margin-left: 10px;" />
+      <a routerLink="/dashboard" [ngClass]="{ 'active': selectedItem === 'dashboard' }" (click)="selectItem('dashboard')"><i
+          class="fas fa-home"></i>Home</a>
+      <a routerLink="/uploadfile" [ngClass]="{ 'active': selectedItem === 'uploadfile' }"
+        (click)="selectItem('uploadfile')"><i class="fas fa-file-invoice"></i>Data Extraction</a>
+      
+      <a routerLink="/profile" [ngClass]="{ 'active': selectedItem === 'profile' }"
+        (click)="selectItem('profile')"><i class="fas fa-user"></i>Profile</a>
+
+      <ng-container *ngIf="authService.isAdmin()">
+        <a routerLink="/listUsers" [ngClass]="{ 'active': selectedItem === 'listUsers' }"
+          (click)="selectItem('listUsers')"><i class="fas fa-users"></i>Employees Info</a>
+        <a routerLink="/validation" [ngClass]="{ 'active': selectedItem === 'validation' }"
+          (click)="selectItem('validation')"><i class="fas fa-user-check"></i>Validate Users</a>
+          <a routerLink="/evaluation" [ngClass]="{ 'active': selectedItem === 'evaluation' }"
+          (click)="selectItem('evaluation')"><i class="fa-solid fa-comment-dots"></i>Feedback</a>
+      </ng-container>
+      <a routerLink="/Historique" [ngClass]="{ 'active': selectedItem === 'Historique' }"
+      (click)="selectItem('Historique')"><i class="fa-solid fa-clock-rotate-left"></i>Historical</a>
+    </div>
+  
+
+    
+  </div>
+</div>
+
+<!-- Contenu principal -->
+<div class="main-content">
+  <!-- Votre contenu principal ici -->
+</div>

@@ -1,0 +1,59 @@
+/* Style du conteneur principal */
+.file-upload-container {
+    border: 2px solid #ccc; /* Bordure continue */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1100px;
+    border-radius: 10px;
+  }
+  
+  /* Style du conteneur d'image */
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    max-width: 100%;
+  }
+  
+  /* Style du conteneur de PDF */
+  .pdf-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    max-width: 100%;
+  }
+  
+  /* Style du bouton de téléchargement */
+  .file-input {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .file-input:hover {
+    border-color: #aaa;
+  }
+  
+  /* Style de l'image */
+  .image-container img {
+    display: block;
+    max-width: 500px;
+    border-radius: 5px;
+  }
+  
+  /* Style du lecteur PDF */
+  .pdf-container pdf-viewer {
+    display: block;
+    height: 500px;
+    max-width: 100%;
+  }
+  
+  /* Autres styles */
+  /* Ajoutez les autres styles CSS fournis selon les besoins */
+  

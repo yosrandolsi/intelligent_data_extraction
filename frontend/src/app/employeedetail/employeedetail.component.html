@@ -1,0 +1,208 @@
+<app-navbar></app-navbar>
+
+<section class="detail">
+  <div class="backcontainer"></div>
+</section>
+
+<div *ngIf="user">
+  <ng-template [ngIf]="!isEditMode">
+
+    
+    <form #formemploye="ngForm" >
+      <button style="background-color: #fff; /* Couleur de fond par défaut */
+      border: 2px solid #1d61a2; /* Bordure noire */
+      border-radius: 50%; /* Rendre le bouton circulaire */
+      width: 50px; /* Largeur du bouton */
+      height: 50px; /* Hauteur du bouton */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur */
+      position: fixed; /* Position fixe */
+      left: 30px; /* Espace à gauche de l'écran */
+      top: 80px; /* Espace en haut de l'écran */" (click)="goBack()">
+        <svg height="25" width="25" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+        <span></span>
+      </button>
+      <h3 style="color: #1d61a2;">{{user.username}}'s contact info</h3>
+
+      <table border="1">
+
+        <div class="container">
+          <div class="left-inputs">
+            <tr>
+              <th><label>Username</label></th>
+              <td><input value="{{user.username}}" readonly></td>
+            </tr>
+            <tr>
+              <th><label>First Name</label></th>
+              <td><input value="{{user.name}}" readonly></td>
+            </tr>
+            <tr>
+              <th><label>Last Name</label></th>
+              <td><input value="{{user.lastName}}" readonly></td>
+            </tr>
+         
+         
+          </div>
+
+          <div class="right-inputs">
+            <tr>
+              <th><label>Email Address</label></th>
+              <td><input value="{{user.email}}" readonly></td>
+            </tr>
+            <tr>
+              <th><label>Phone Number</label></th>
+              <td><input value="{{user.tel}}" readonly></td>
+            </tr>
+            <tr>
+              <th><label>Matricule</label></th>
+              <td><input value="{{user.matricule}}" readonly></td>
+            </tr>
+          </div>
+        </div>
+      </table>
+      <div class="button-row">
+        <button class="edit-button" (click)="toggleEditMode()">
+          <svg class="edit-svgIcon" viewBox="0 0 512 512">
+            <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+          </svg>
+        </button>
+        <button class="delete-button" (click)="confirmSupprimer()">
+          <svg class="delete-svgIcon" viewBox="0 0 448 512">
+            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </ng-template>
+
+  <form #editForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="isEditMode">
+    <table border="1">
+      <h3 style="color: #1d61a2;">Edit {{user.username}}'s contact info</h3>
+      <div class="container">
+        <div class="left-inputs">
+          <tr>
+            <th><label>User Name</label></th>
+            <td><input type="text" ngModel name="newuserName" [(ngModel)]="user.username"></td>
+          </tr>
+          <tr>
+            <th><label>First Name</label></th>
+            <td><input type="text" ngModel name="newName" [(ngModel)]="user.name"></td>
+          </tr>
+          <tr>
+            <th><label>Last Name</label></th>
+            <td><input type="text" ngModel name="LastName" [(ngModel)]="user.lastName"></td>
+          </tr>
+     
+        </div>
+
+        <div class="right-inputs">
+          <tr>
+            <th><label>Email Address</label></th>
+            <td><input type="text" ngModel name="Email" [(ngModel)]="user.email"></td>
+          </tr>
+          <tr>
+            <th><label>Phone Number</label></th>
+            <td><input type="text" ngModel name="PhoneNumber" [(ngModel)]="user.tel"></td>
+          </tr>
+        </div>
+      </div>
+    </table>
+   
+
+    <div class="button-row">
+      <button class="noselect cancel-button custom-button" (click)="onSubmit()">
+        <span class="text">Save</span>
+        <span class="icon">
+          <!-- Utilisez l'icône de coche de Material Icons en gras -->
+          <svg class="save-regular" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"></path></svg>
+        </span>
+      </button>
+    
+      <div style="margin-left: 50px;"></div>
+      <button class="noselect custom-button" (click)="toggleEditMode()">
+        <span class="text" style="align-items: center;">Cancel</span>
+        <span class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
+          </svg>
+        </span>
+      </button>
+    </div>
+    
+  </form>
+
+  <div class="confirmation-card" *ngIf="showConfirmation">
+    <div class="card">
+      <i class="far fa-trash-alt fa-2x"></i>
+
+
+      <div class="card-content">
+        <p class="card-heading">Delete {{user.username}}?</p>
+        <p class="card-description">Are you sure you want to delete {{user.username}}?</p>
+      </div>
+      <div class="card-button-wrapper">
+        <button class="card-button secondary" (click)="cancelDelete()">Cancel</button>
+        <button class="card-button primary" (click)="confirmDelete()">Delete</button>
+      </div>
+ 
+    </div>
+  </div>
+ 
+
+  <div class="card" *ngIf="showSuccessMessage" style="overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: #fff;"> 
+  <button  class="dismiss" (click)="dismissSuccessMessage()">×</button> 
+  <div class="header"> 
+    <div class="image">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#000000" d="M20 7L9.00004 18L3.99994 13"></path> </g></svg>
+    </div> 
+    <div class="content">
+      <span class="title">Deletion successful</span> 
+      <p class="message">The user has been successfully deleted.</p> 
+    </div>
+    <div class="actions">
+      <button  class="history" (click)="dismissSuccessMessage()">OK</button> 
+    </div> 
+  </div> 
+</div>
+  
+ 
+  
+  <div class="card" *ngIf="showErrorMessage" style="overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: #fff;"> <!-- Ajout de la bordure rouge -->
+  <button class="dismiss" (click)="dismissErrorMessage()">×</button>
+  <div class="header">
+    <div >
+   
+    </div>
+    <div class="content">
+      <span class="title" style="color: red;">Deletion error</span> <!-- Modification de la couleur du titre -->
+      <p class="message">An error occurred while deleting the user. Please try again.</p>
+    </div>
+    
+    <div class="actions">
+      <button class="history" (click)="dismissErrorMessage()" style="background-color: red;">OK</button> <!-- Modification de la couleur du bouton -->
+    </div>
+  </div>
+</div>
+
+</div>

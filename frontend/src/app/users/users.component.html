@@ -1,0 +1,33 @@
+
+<section class="users">
+  <app-navbar></app-navbar>
+  <div class="container">
+    <!-- Modify the filter input to trigger on input event -->
+    <div class="filter-container">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Filtrer par nom</span>
+        <input type="text" class="form-control" id="filterName" placeholder="Nom" aria-label="Filter by Name:" aria-describedby="basic-addon1" [(ngModel)]="filterName" (input)="applyFilter()"/>
+      </div>
+    </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Matricule</th>
+        <th>Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of filteredUsers">
+          <td>{{ user.name }}</td>
+          <td>{{ user.matricule }}</td>
+          <td>
+            <button class="get-position-btn" routerLink="/listPointages/{{user.id}}">Obtenir Position</button>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+</section>

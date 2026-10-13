@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>List of Driving Licenses</h2>
+  <ng-container *ngFor="let group of drivingLicencesByExtractionDate">
+    <div class="date-container">
+     
+     
+    </div>
+
+    <div class="table-container">
+     
+      <p>Extraction Date: {{ group.date | date: 'yyyy-MM-dd' }}</p>
+      <table class="table" style="font-size: small;">
+        <thead>
+          <tr>
+            <th>License Number</th>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Nationality</th>
+            <th>Issue Date</th>
+            <th>Expiry Date</th>
+            <th>Information</th>
+            <!-- Add more column headers as needed -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let licence of group.licences">
+            <td>{{ licence.licenceNumber }}</td>
+            <td>{{ licence.name }}</td>
+            <td>{{ licence.dateOfBirth }}</td>
+            <td>{{ licence.nationality }}</td>
+            <td>{{ licence.issueDate }}</td>
+            <td>{{ licence.expiryDate }}</td>
+            <td>
+              <span >At</span>&nbsp;
+              <span class="orange-text">{{ group.date | date: 'HH:mm' }}</span>&nbsp;
+              <span >by</span>&nbsp;
+              <span class="orange-text">{{ licence.username }}</span>&nbsp;
+            </td>
+
+            <!-- Add more cells as needed -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>

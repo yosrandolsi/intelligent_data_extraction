@@ -1,0 +1,202 @@
+<section class="connexion">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="align-items: center;">
+              <h5 class="" style="letter-spacing: 1px; color: #1d61a2; font-size: 50px; margin-top: 10px;">Registration</h5>
+            </div>
+            <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color:orange;">Create your account</h5>
+          </div>
+
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block" style="margin-top: 30px;">
+              <img src="assets/images/15.jpg" alt="Logo" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+
+            <div class="alert alert-danger" *ngIf="err!=''">
+              <strong>{{err}}</strong>
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <form (ngSubmit)="onRegister()" [formGroup]="myForm">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="container">
+                        <div class="left-inputs">
+                          <div class="form-row mb-3">
+                            <div class="col-md-12">
+                              <label for="validationDefault01">First name</label>
+                              <input type="text" class="form-control" name="firstName" placeholder="First name" formControlName="name" required [ngClass]="{'invalid-input': formSubmitted && myForm.controls['name'].errors}">
+                              <div *ngIf="formSubmitted && !user.name" class="invalid-feedback">The First Name field is required.</div>
+                            </div>
+                          </div>
+                          <div class="form-row mb-3">
+                            <div class="col-md-12">
+                              <label for="validationDefaultUsername">Username</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                </div>
+                                <input type="text" class="form-control" name="username" placeholder="Username" formControlName="username" required [ngClass]="{'invalid-input': formSubmitted && myForm.controls['username'].errors}">
+                              </div>
+                              <span *ngIf="myForm.controls['username'].hasError('required') && myForm.controls['username'].touched" class="text-danger">The Username is required</span>
+                            </div>
+                          </div>
+                          <div class="form-row mb-3">
+                            <div class="col-md-12">
+                              <label>Password</label>
+                              <input type="password" class="form-control" name="password" placeholder="Password" formControlName="password" required [ngClass]="{'invalid-input': formSubmitted && myForm.controls['password'].errors}">
+                              <span *ngIf="myForm.controls['password'].hasError('required') && myForm.controls['password'].touched" class="text-danger">The password is required</span>
+                              <span *ngIf="myForm.controls['password'].hasError('minlength') && myForm.controls['password'].touched" class="text-danger">The password must have at least 6 characters</span>
+                            </div>
+                          </div>
+                          <div class="form-row mb-3">
+                            <div class="col-md-12">
+                              <label for="validationDefault02">Phone</label>
+                              <input type="text" class="form-control" name="tel" placeholder="Phone" formControlName="tel" [ngClass]="{'invalid-input': formSubmitted && myForm.controls['tel'].errors}">
+                              <span *ngIf="myForm.controls['tel'].hasError('required') && myForm.controls['tel'].touched" class="text-danger">The Phone number is required</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="container">
+                        <div class="right-inputs">
+                          <div class="form-row mb-3">
+                            <div class="col-md-12">
+                              <label for="validationDefault02">Last name</label>
+                              <input type="text" class="form-control" name="lastName" placeholder="Last name" formControlName="lastName" required [ngClass]="{'invalid-input': formSubmitted && myForm.controls['lastName'].errors}">
+                              <span *ngIf="myForm.controls['lastName'].hasError('required') && myForm.controls['lastName'].touched" class="text-danger">The last Name is required</span>
+                            </div>
+                          </div>
+                          <div class="form-row mb-3">
+                            <div class="col-md-12">
+                              <label>Email</label>
+                              <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email" required [ngClass]="{'invalid-input': formSubmitted && myForm.controls['email'].errors}">
+                              <span *ngIf="myForm.controls['email'].hasError('required') && myForm.controls['email'].touched" class="text-danger">The email is required</span>
+                              <span *ngIf="myForm.controls['email'].hasError('email') && myForm.controls['email'].touched" class="text-danger">Invalid email</span>
+                            </div>
+                          </div>
+                          <div class="form-row mb-3">
+                            <div class="col-md-12">
+                              <label>Confirm Password</label>
+                              <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword" required [ngClass]="{'invalid-input': formSubmitted && myForm.controls['confirmPassword'].errors || (formSubmitted && myForm.get('confirmPassword')?.value != myForm.get('password')?.value)}">
+                              <span *ngIf="myForm.controls['password'].hasError('required') && myForm.controls['password'].touched" class="text-danger">The password is required</span>
+                              <div *ngIf="myForm.get('confirmPassword')?.touched && myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="text-danger">The confirmed password does not match</div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <label for="validationDefault03">Address</label>
+                            <input type="text" class="form-control" name="address" placeholder="Address" formControlName="address" required [ngClass]="{'invalid-input': formSubmitted && myForm.controls['address'].errors}">
+                            <span *ngIf="myForm.controls['address'].hasError('required') && myForm.controls['address'].touched" class="text-danger">The address is required</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button [disabled]="myForm.invalid" class="noselect custom-button" type="submit">
+                    <span class="text">Register</span>
+                    <span class="icon">
+                      <i class="fa-solid fa-plus" style="color: white;"></i>
+                    </span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success message card -->
+
+
+  <div class="card" *ngIf="registrationSuccess" style="  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: #fff;"> 
+    <button type="button" class="dismiss" (click)="redirectToLoginPage()">×</button> 
+    <div class="header"> 
+      <div class="image">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#000000" d="M20 7L9.00004 18L3.99994 13"></path> </g></svg>
+        </div> 
+        <div class="content">
+           <span class="title">successfully registered</span> 
+           <p class="message"> Thank you for registering. Please wait for our administrators to validate your account.</p> 
+           </div> 
+           <div class="actions">
+              <button type="button" class="history" (click)="redirectToLoginPage()">OK</button> 
+              
+              </div> 
+              </div> 
+              </div>
+  
+  
+  
+              <div class="card" *ngIf="showErrorCard" style="overflow: hidden;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              text-align: left;
+              border-radius: 0.5rem;
+              max-width: 290px;
+              box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+              background-color: white;"> <!-- Ajoutez la propriété background-color: white; ici -->
+                <div class="header">
+                  <div class="icons"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                              <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg></div>
+                  <div class="content">
+                    <span style="color: red;">EMAIL ALREADY EXISTS </span>
+                    <p class="message">This email already exists please choose another email</p>
+                  </div>
+                   <div class="actions">
+                    <button class="desactivate" type="button" (click)="cancel()">OK</button>
+            
+                     
+                  </div>
+                </div>
+                </div>
+
+
+                <div class="card" *ngIf="showErrorCard2" style="overflow: hidden;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: left;
+                border-radius: 0.5rem;
+                max-width: 290px;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                background-color: white;"> <!-- Ajoutez la propriété background-color: white; ici -->
+                  <div class="header">
+                    <div class="icons"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+                              </svg></div>
+                    <div class="content">
+                      <span style="color: red;">username ALREADY EXISTS </span>
+                      <p class="message">This username already exists please choose another one</p>
+                    </div>
+                     <div class="actions">
+                      <button class="desactivate" type="button" (click)="cancel()">OK</button>
+              
+                       
+                    </div>
+                  </div>
+                  </div>
+  
+  
+
+
+</section>

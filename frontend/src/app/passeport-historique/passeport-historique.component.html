@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>List of Passports</h2>
+  <ng-container *ngFor="let group of passeportsByExtractionDate">
+    <div class="date-container">
+      
+    </div>
+
+    <div class="table-container" style="font-size: small;">
+      <p>Extraction Date: {{ group.date | date: 'yyyy-MM-dd' }}</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Passport Number</th>
+            <th>Given Name</th>
+            <th>Surname</th>
+            <th>Nationality</th>
+            <th>Date of Birth</th>
+            <th>Issue Date</th>
+            <th>Expiry Date</th>
+      
+            <th>Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let passport of group.passports">
+            <td>{{ passport.passportNumber }}</td>
+            <td>{{ passport.givenName }}</td>
+            <td>{{ passport.surname }}</td>
+            <td>{{ passport.nationality }}</td>
+            <td>{{ passport.dateOfBirth }}</td>
+            <td>{{ passport.issueDate }}</td>
+            <td>{{ passport.expiryDate }}</td>
+          
+            <td>
+              <span >At</span>&nbsp;
+              <span class="orange-text">{{ group.date | date: 'HH:mm' }}</span>&nbsp;
+              <span >by</span>&nbsp;
+              <span class="orange-text">{{ passport.username }}</span>&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>

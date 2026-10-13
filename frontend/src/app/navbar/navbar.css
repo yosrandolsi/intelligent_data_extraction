@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body, .container {
+  height: 100%;
+}
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #ffffff; /* Couleur de fond en blanc */
+  border: 1px solid grey; /* Bordure de 2px solide en bleu */
+  position: fixed;
+  padding-top: 20px;
+  bottom: 0;
+  border-radius: 10px;
+  top: 40px;
+  left: 0;
+  overflow-y: auto;
+}
+
+
+.topnav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.topnav-content {
+  flex-grow: 1;
+}
+
+.topnav a {
+  display: flex;
+  align-items: center; /* Alignement vertical */
+  justify-content: flex-start; /* Alignement à gauche */
+  color: #1d61a2;
+  text-align: left; /* Alignement du texte à gauche */
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border-radius: 10px;
+  transition: border-color 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.topnav a i {
+  margin-right: 8px; /* Espace entre l'icône et le texte */
+}
+
+/**.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+  border-color: #fff;
+}**/
+
+.topnav a.active {
+  background-color: #dee8ed;
+  color:orange;
+  border-color: orange;
+}
+
+.topnav a:not(.active) {
+  color: #1d61a2;
+}
+
+.logout {
+  margin-top: auto; /* Déplace "Deconnexion" vers le bas */
+}
+
+.logout a {
+  color: #dee8ed;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.logout a:hover {
+
+  color: orange;
+}
+
+.topnav-content a {
+  display: block;
+}
+.navbar {
+  width: 100%;
+  background-color: #1d61a2; /* Même couleur que la barre latérale */
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  z-index: 1000; /* Pour s'assurer que la barre de navigation reste au-dessus de tout le contenu */
+}
+.sidebar .submenu {
+  padding-left: 20px;
+}
+
+.sidebar a.active {
+  color: orange;
+  font-weight: bold;
+}

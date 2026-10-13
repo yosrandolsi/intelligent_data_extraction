@@ -1,0 +1,718 @@
+<app-navbar></app-navbar>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+<div class="container">
+  <div class="row">
+    <!-- Partie gauche pour l'upload de fichiers -->
+    <div class="col-md-6">
+      <div class="center">
+        <div class="upload-section" [ngStyle]="{'width': fileName ? '600px' : '480px'}">
+          <div class="header-section">
+            <h1 style="color: #5f6160; text-align: center;">Upload Files</h1>
+            <p style="color: gray; text-align: center;" *ngIf="!fileName">Upload files you want to extract.</p>
+            <p style="color: gray; text-align: center;" *ngIf="!fileName">PNG, JPG, JPEG & PDF are allowed.</p>
+          </div>
+          <div class="drop-section" (dragover)="fileOver($event)" (drop)="handleFileDrop($event)"
+            style="color: #5f6160; text-align: center;">
+            <div class="image-container">
+              <div class="cloud-icon" *ngIf="!fileName" style="display: flex; justify-content: center;">
+                <img src="assets/images/cloud.png" alt="cloud" style="width: 50px; height: 50px;">
+              </div>
+              <span style="font-size: 35px; color: #5f6160; text-align: center;" *ngIf="!fileName">Drag & Drop your
+                files here </span><br>
+              <span style="font-size: 35px; color: #5f6160; text-align: center;" *ngIf="!fileName"> or</span><br>
+              <div style="display: flex; justify-content: center; align-items: center;">
+                <button class="noselect cancel-button custom-button" (click)="browseFiles()" *ngIf="!fileName" style="width: 180px;">
+                  <span class="text" style="margin-right: 40px;">Choose File</span>
+                  <span class="icon">
+                    <!-- Utilisez l'icône de coche de Material Icons en gras -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                      <!-- Votre code SVG ici -->
+                      <path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              
+              <input #fileInput type="file" class="file-selector-input" (change)="handleFileInput($event)" multiple
+                accept=".png, .jpg, .jpeg, .pdf" style="display: none">
+              <div class="file-name-display" *ngIf="fileName">
+                <div class="file-name-container">
+                  <p>{{ fileName }}</p>
+                </div>
+                <div class="delete-button-container">
+                  <button class="delete-button" (click)="removeFile()">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="image-wrapper">
+                <div class="image-display" *ngIf="fileDataUrl && !isPDF(fileName)">
+                  <img [src]="fileDataUrl" alt="Facture" class="standard-image">
+                </div>
+              </div>
+              <div class="pdf-display" *ngIf="fileDataUrl && pdfSrc && isPDF(fileName)">
+                <pdf-viewer [src]="pdfSrc" [fit-to-page]="true"
+                  style="display: block; width: 100%; height: 600px;"></pdf-viewer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Le reste du contenu va ici -->
+
+
+    <!-- Partie droite pour le formulaire d'extraction, en dehors du cadre d'upload -->
+    <div class="col-md-6 ">
+      <div class="form-part">
+        <div class="header-section">
+          <h1 style="color: #5f6160;">Extract Document Data</h1>
+
+        </div>
+        <div class="col-md-6" [formGroup]="documentForm">
+          <select class="form-control" id="documentType" formControlName="documentType"
+            [(ngModel)]="selectedDocumentType">
+            <option *ngIf="!documentForm.get('documentType')?.value" value=""></option>
+            <option value="Invoice">Invoice</option>
+            <option value="Receipt">Receipt</option>
+            <option value="CIN">CIN</option>
+            <option value="Passport">Passport</option>
+            <option value="Unknown">Unknown</option>
+           
+            
+            <option value="Driving Licence">Driving Licence</option>
+          </select>
+
+        </div>
+        <div> <br></div>
+
+        <!-- Dans votre fichier HTML (uploadfile.component.html) -->
+        <!-- Dans votre fichier HTML (uploadfile.component.html) -->
+        <button class="noselect cancel-button custom-button"  *ngIf="selectedDocumentType === 'Invoice'"
+          (click)="handleExtractClick()" style="width: 100px; .custom-button .icon {
+            position: absolute;
+            left:5px;}">
+ 
+            <span class="text" style="margin-right: 40px;">Extract</span>
+            
+          </button>
+          
+       
+        <form [formGroup]="invoiceForm" *ngIf="fileName && selectedDocumentType === 'Invoice'" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="invoiceNumber">Invoice Number:</label>
+            <input type="text" class="form-control" id="invoiceNumber" placeholder="Enter invoice number"
+              formControlName="invoiceNumber" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(invoiceNumberScore), 
+      'background-color': getInputBackgroundColor(invoiceNumberScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for invoice number: {{ (invoiceNumberScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="invoiceDate">Invoice Date:</label>
+            <input type="text" class="form-control" id="invoiceDate" placeholder="Enter invoice date"
+              formControlName="invoiceDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(invoiceDateScore), 
+      'background-color': getInputBackgroundColor(invoiceDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for invoice date: {{ (invoiceDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="totalAmount">Total Amount:</label>
+            <input type="text" class="form-control" id="totalAmount" placeholder="Enter total amount"
+              formControlName="totalAmount" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(totalAmountScore), 
+      'background-color': getInputBackgroundColor(totalAmountScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for total amount: {{ (totalAmountScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="vendorName">Vendor Name:</label>
+            <input type="text" class="form-control" id="vendorName" placeholder="Enter vendor name"
+              formControlName="vendorName" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(vendorNameScore), 
+      'background-color': getInputBackgroundColor(vendorNameScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for vendor name: {{ (vendorNameScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customerAddress">Address:</label>
+            <input type="text" class="form-control" id="customerAddress" placeholder="Enter address"
+              formControlName="customerAddress" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(customerAddressScore), 
+      'background-color': getInputBackgroundColor(customerAddressScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for customer address: {{ (customerAddressScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+         
+          <button class="noselect cancel-button custom-button" type="submit" (click)="onSubmit()" style="width: 150px; margin-left: 10px;">
+            <span class="text" style="margin-right: 40px;">Save</span>
+            <span class="icon">
+              <!-- Utilisez l'icône de coche de Material Icons en gras -->
+              <svg class="save-regular" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                <path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"></path>
+              </svg>
+            </span>
+          </button>
+          
+        </form>
+
+
+
+
+
+
+        <!-- uploadfile.component.html -->
+
+        <button class="noselect cancel-button custom-button"  *ngIf="selectedDocumentType === 'Receipt'"
+          (click)="handleExtractClick()" style="width: 100px; .custom-button .icon {
+            position: absolute;
+            left:5px;}">
+ 
+            <span class="text" style="margin-right: 40px;">Extract</span>
+            
+          </button>
+
+        <form [formGroup]="receiptForm" *ngIf="fileName && selectedDocumentType === 'Receipt'" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input type="hidden" formControlName="fileName">
+            <label for="receiptNumber">Receipt Number:</label>
+            <input type="text" class="form-control" id="receiptNumber" placeholder="Enter receipt number"
+              formControlName="receiptNumber" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(receiptNumberScore), 
+            'background-color': getInputBackgroundColor(receiptNumberScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for receipt number: {{ (receiptNumberScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="receiptDate">Receipt Date:</label>
+            <input type="text" class="form-control" id="receiptDate" placeholder="Enter receipt date"
+              formControlName="receiptDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(receiptDateScore), 
+            'background-color': getInputBackgroundColor(receiptDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for receipt date: {{ (receiptDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="totalAmount">Total Amount:</label>
+            <input type="text" class="form-control" id="totalAmount" placeholder="Enter total amount"
+              formControlName="totalAmount" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(totalAmountScore), 
+            'background-color': getInputBackgroundColor(totalAmountScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for total amount: {{ (totalAmountScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="storeName">Store Name:</label>
+            <input type="text" class="form-control" id="storeName" placeholder="Enter store name"
+              formControlName="storeName" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(storeNameScore), 
+            'background-color': getInputBackgroundColor(storeNameScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for store name: {{ (storeNameScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="salesTax">Sales Tax Amount:</label>
+            <input type="text" class="form-control" id="salesTax" placeholder="Enter sales tax amount"
+              formControlName="salesTax" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(salesTaxScore), 
+            'background-color': getInputBackgroundColor(salesTaxScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for sales tax: {{ (salesTaxScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+
+          <!-- Ajoutez d'autres champs si nécessaire -->
+          <button class="noselect cancel-button custom-button" type="submit" (click)="onSubmit()" style="width: 150px; margin-left: 10px;">
+            <span class="text" style="display: flex; justify-content: center;">Save</span>
+            <span class="icon">
+              <!-- Utilisez l'icône de coche de Material Icons en gras -->
+              <svg class="save-regular" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                <path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"></path>
+              </svg>
+            </span>
+          </button>
+        </form>
+
+
+        <!-- Ajoutez le formulaire pour les CIN -->
+
+
+        <button class="noselect cancel-button custom-button"  *ngIf="selectedDocumentType === 'CIN'"
+          (click)="handleExtractClick()" style="width: 100px; .custom-button .icon {
+            position: absolute;
+            left:5px;}">
+ 
+            <span class="text" style="margin-right: 40px;">Extract</span>
+            
+          </button>
+        <form [formGroup]="cinForm" *ngIf="fileName && selectedDocumentType === 'CIN'" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="cinNumber">CIN Number:</label>
+            <input type="text" class="form-control" id="cinNumber" placeholder="Enter CIN number"
+              formControlName="cinNumber" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(cinNumberScore),
+                           'background-color': getInputBackgroundColor(cinNumberScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for CIN number: {{ (cinNumberScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fullName">Name:</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter name"
+              formControlName="fullName" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(fullNameScore),
+                           'background-color': getInputBackgroundColor(fullNameScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for full name: {{ (fullNameScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="text" class="form-control" id="dateOfBirth" placeholder="Enter date of birth"
+              formControlName="dateOfBirth" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(dateOfBirthScore),
+                           'background-color': getInputBackgroundColor(dateOfBirthScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for date of birth: {{ (dateOfBirthScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nationality">Nationality:</label>
+            <input type="text" class="form-control" id="nationality" placeholder="Enter nationality"
+              formControlName="nationality" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(nationalityScore),
+                           'background-color': getInputBackgroundColor(nationalityScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for nationality: {{ (nationalityScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" class="form-control" id="expiryDate" placeholder="Enter expiry date"
+              formControlName="expiryDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(expiryDateScore),
+                           'background-color': getInputBackgroundColor(expiryDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for expiry date: {{ (expiryDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="issueDate">Issue Date:</label>
+            <input type="text" class="form-control" id="issueDate" placeholder="Enter issue date"
+              formControlName="issueDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(issueDateScore),
+                           'background-color': getInputBackgroundColor(issueDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for issue date: {{ (issueDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <!-- Add more fields if necessary -->
+          <button class="noselect cancel-button custom-button" type="submit" (click)="onSubmit()" style="width: 150px; margin-left: 10px;">
+            <span class="text" style="display: flex; justify-content: center;">Save</span>
+            <span class="icon">
+              <!-- Utilisez l'icône de coche de Material Icons en gras -->
+              <svg class="save-regular" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                <path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"></path>
+              </svg>
+            </span>
+          </button>
+        </form>
+
+
+
+
+        <button class="noselect cancel-button custom-button"  *ngIf="selectedDocumentType === 'Passport'"
+          (click)="handleExtractClick()" style="width: 100px; .custom-button .icon {
+            position: absolute;
+            left:5px;}">
+ 
+            <span class="text" style="margin-right: 40px;">Extract</span>
+            
+          </button>
+
+        <form [formGroup]="passportForm" *ngIf="fileName && selectedDocumentType === 'Passport'"
+          (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="passportNumber">Passport Number:</label>
+            <input type="text" class="form-control" id="passportNumber" placeholder="Enter passport number"
+              formControlName="passportNumber" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(passportNumberScore),
+                           'background-color': getInputBackgroundColor(passportNumberScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for passport number: {{ (passportNumberScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="givenName">Given Name:</label>
+            <input type="text" class="form-control" id="givenName" placeholder="Enter given name"
+              formControlName="givenName" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(givenNameScore),
+                           'background-color': getInputBackgroundColor(givenNameScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for given name: {{ (givenNameScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="surname">Surname:</label>
+            <input type="text" class="form-control" id="surname" placeholder="Enter surname" formControlName="surname"
+              [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(surnameScore),
+                           'background-color': getInputBackgroundColor(surnameScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for surname: {{ (surnameScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nationality">Nationality:</label>
+            <input type="text" class="form-control" id="nationality" placeholder="Enter nationality"
+              formControlName="nationality" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(nationalityScore),
+                           'background-color': getInputBackgroundColor(nationalityScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for nationality: {{ (nationalityScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="text" class="form-control" id="dateOfBirth" placeholder="Enter date of birth"
+              formControlName="dateOfBirth" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(dateOfBirthScore),
+                           'background-color': getInputBackgroundColor(dateOfBirthScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for date of birth: {{ (dateOfBirthScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="issueDate">Issue Date:</label>
+            <input type="text" class="form-control" id="issueDate" placeholder="Enter issue date"
+              formControlName="issueDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(issueDateScore),
+                           'background-color': getInputBackgroundColor(issueDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for issue date: {{ (issueDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" class="form-control" id="expiryDate" placeholder="Enter expiry date"
+              formControlName="expiryDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(expiryDateScore),
+                           'background-color': getInputBackgroundColor(expiryDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for expiry date: {{ (expiryDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+         <!-- <div class="form-group">
+            <label for="sex">Gender:</label>
+            <input type="text" class="form-control" id="sex" placeholder="Enter Gender" formControlName="sex" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(sexScore),
+                           'background-color': getInputBackgroundColor(sexScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for gender: {{ (sexScore * 100).toFixed(2) }}%
+            </div>
+          </div>-->
+          <!-- Add more fields if necessary -->
+          <button class="noselect cancel-button custom-button" type="submit">
+            <span class="text">Save</span>
+            <span class="icon">
+              <!-- Utilisez l'icône de coche de Material Icons en gras -->
+              <svg class="save-regular" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"></path></svg>
+            </span>
+          </button>
+        </form>
+
+
+        <button class="extract-button" *ngIf="selectedDocumentType === 'Statement'"
+          (click)="handleExtractClick()">Extract</button>
+
+        <form [formGroup]="statementForm" *ngIf="fileName && selectedDocumentType === 'Statement'">
+          <div class="form-group">
+            <label for="accountNumber">Account Number:</label>
+            <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number"
+              formControlName="accountNumber" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(accountNumberScore),
+                   'background-color': getInputBackgroundColor(accountNumberScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for account number: {{ (accountNumberScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="statementDate">Statement Date:</label>
+            <input type="text" class="form-control" id="statementDate" placeholder="Enter statement date"
+              formControlName="statementDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(statementDateScore),
+                   'background-color': getInputBackgroundColor(statementDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for statement date: {{ (statementDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="previousBalance">Previous Balance:</label>
+            <input type="text" class="form-control" id="previousBalance" placeholder="Enter previous balance"
+              formControlName="previousBalance" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(previousBalanceScore),
+                   'background-color': getInputBackgroundColor(previousBalanceScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for previous balance: {{ (previousBalanceScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="totalDeposits">Total Deposits:</label>
+            <input type="text" class="form-control" id="totalDeposits" placeholder="Enter total deposits"
+              formControlName="totalDeposits" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(totalDepositsScore),
+                   'background-color': getInputBackgroundColor(totalDepositsScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for total deposits: {{ (totalDepositsScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="totalWithdrawals">Total Withdrawals:</label>
+            <input type="text" class="form-control" id="totalWithdrawals" placeholder="Enter total withdrawals"
+              formControlName="totalWithdrawals" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(totalWithdrawalsScore),
+                   'background-color': getInputBackgroundColor(totalWithdrawalsScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for total withdrawals: {{ (totalWithdrawalsScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="currentBalance">Current Balance:</label>
+            <input type="text" class="form-control" id="currentBalance" placeholder="Enter current balance"
+              formControlName="currentBalance" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(currentBalanceScore),
+                   'background-color': getInputBackgroundColor(currentBalanceScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for current balance: {{ (currentBalanceScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <!-- Add more fields if necessary -->
+          <button class="noselect cancel-button custom-button" type="submit" (click)="onSubmit()" style="width: 150px; margin-left: 10px;">
+            <span class="text" style="display: flex; justify-content: center;">Save</span>
+            <span class="icon">
+              <!-- Utilisez l'icône de coche de Material Icons en gras -->
+              <svg class="save-regular" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                <path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"></path>
+              </svg>
+            </span>
+          </button>
+        </form>
+
+
+        <button class="noselect cancel-button custom-button"  *ngIf="selectedDocumentType === 'Driving Licence'"
+        (click)="handleExtractClick()" style="width: 100px; .custom-button .icon {
+          position: absolute;
+          left:5px;}">
+
+          <span class="text" style="margin-right: 40px;">Extract</span>
+          
+        </button>
+
+        <form [formGroup]="drivingLicenceForm" *ngIf="fileName && selectedDocumentType === 'Driving Licence'"
+          (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="licenceNumber">Licence Number:</label>
+            <input type="text" class="form-control" id="licenceNumber" placeholder="Enter licence number"
+              formControlName="licenceNumber" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(licenceNumberScore),
+                   'background-color': getInputBackgroundColor(licenceNumberScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for licence number: {{ (licenceNumberScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Name">Name:</label>
+            <input type="text" class="form-control" id="Name" placeholder="Enter name" formControlName="Name" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(nameScore),
+                   'background-color': getInputBackgroundColor(nameScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for name: {{ (nameScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="text" class="form-control" id="dateOfBirth" placeholder="Enter date of birth"
+              formControlName="dateOfBirth" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(dateOfBirthScore),
+                   'background-color': getInputBackgroundColor(dateOfBirthScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for date of birth: {{ (dateOfBirthScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nationality">Nationality:</label>
+            <input type="text" class="form-control" id="nationality" placeholder="Enter nationality"
+              formControlName="nationality" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(nationalityScore),
+                   'background-color': getInputBackgroundColor(nationalityScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for nationality: {{ (nationalityScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" class="form-control" id="expiryDate" placeholder="Enter expiry date"
+              formControlName="expiryDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(expiryDateScore),
+                   'background-color': getInputBackgroundColor(expiryDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for expiry date: {{ (expiryDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="issueDate">Issue Date:</label>
+            <input type="text" class="form-control" id="issueDate" placeholder="Enter issue date"
+              formControlName="issueDate" [ngStyle]="{ 'border': '2px solid', 'border-color': getInputBorderColor(issueDateScore),
+                   'background-color': getInputBackgroundColor(issueDateScore), 'border-radius': '5px' }">
+            <div class="score">
+              Score for issue date: {{ (issueDateScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+          <!-- Add more fields if necessary -->
+          <button class="noselect cancel-button custom-button" type="submit" (click)="onSubmit()" style="width: 150px; margin-left: 10px;">
+            <span class="text" style="display: flex; justify-content: center;">Save</span>
+            <span class="icon">
+              <!-- Utilisez l'icône de coche de Material Icons en gras -->
+              <svg class="save-regular" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                <path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"></path>
+              </svg>
+            </span>
+          </button>
+        </form>
+
+
+        <div class="progress-container" *ngIf="isExtracting">
+          <div class="progress-bar" #progressBar></div>
+        </div>
+        <div *ngIf="savedSuccessfully" class="alert-container">
+          <div class="success">
+            <div class="success__icon">
+              <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd" d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z" fill="#393a37" fill-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="success__title">Informations sauvegardées avec succès.</div>
+          </div>
+        </div>
+        
+
+
+
+        <div class="center-body" *ngIf="isExtracting">
+          <div class="wrapper">
+              <div class="loader-container">
+                  <div class="loader-text" style="margin-left: 50px; margin-top: 50px; font-size: 20px;">Loading...</div>
+                  <div class="custom-loader" style="width: 200px;"></div>
+              </div>
+          </div>
+      </div>
+      
+
+
+       
+          <div class="card" *ngIf="invalidFileType" style="overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: white;"> <!-- Ajoutez la propriété background-color: white; ici -->
+    <div class="header">
+      <div class="image"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg></div>
+      <div class="content">
+        <span class="title">Invalid file type</span>
+        <p class="message">Invalid file type! Please upload only PNG, JPG, JPEG, or PDF documents..</p>
+      </div>
+       <div class="actions">
+        <button class="desactivate" type="button" >OK</button>
+
+         
+      </div>
+    </div>
+          
+    
+
+        
+        </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="feedback-container"  *ngIf="showEvaluationCard" >
+      <button class="close-button" (click)="closeFeedbackBox()">
+        <svg viewBox="0 0 24 24" height="20px" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h1 class="feedback-title">Send Feedback</h1>
+      <div class="rating-stars">
+        <div class="rating">
+          <input type="radio" id="star5" name="rate" value="5" />
+          <label for="star5" title="text">
+            <svg viewBox="0 0 576 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="star-solid">
+              <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
+            </svg>
+          </label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4" title="text">
+            <svg viewBox="0 0 576 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="star-solid">
+              <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
+            </svg>
+          </label>
+          <input checked="" type="radio" id="star3" name="rate" value="3" />
+          <label for="star3" title="text">
+            <svg viewBox="0 0 576 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="star-solid">
+              <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
+            </svg>
+          </label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2" title="text">
+            <svg viewBox="0 0 576 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="star-solid">
+              <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
+            </svg>
+          </label>
+          <input type="radio" id="star1" name="rate" value="1" />
+          <label for="star1" title="text">
+            <svg viewBox="0 0 576 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="star-solid">
+              <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
+            </svg>
+          </label>
+        </div>
+      </div>
+      <textarea class="feedback-textarea" placeholder="Your feedback..." [(ngModel)]="feedbackMessage"></textarea>
+
+      <button class="feedback-button">
+        <svg viewBox="0 0 512 512" height="20px" xmlns="http://www.w3.org/2000/svg">
+          <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+        </svg>
+      </button>
+      <button class="feedback-button">
+        <svg viewBox="0 0 512 512" height="20px" xmlns="http://www.w3.org/2000/svg">
+          <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM174.6 384.1c-4.5 12.5-18.2 18.9-30.7 14.4s-18.9-18.2-14.4-30.7C146.9 319.4 198.9 288 256 288s109.1 31.4 126.6 79.9c4.5 12.5-2 26.2-14.4 30.7s-26.2-2-30.7-14.4C328.2 358.5 297.2 336 256 336s-72.2 22.5-81.4 48.1zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+        </svg>
+      </button>
+      <span class="spacer"></span>
+      <button class="submit-button" (click)="onSendFeedbackClick()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none">
+          <path d="M7.39999 6.32003L15.89 3.49003C19.7 2.22003 21.77 4.30003 20.51 8.11003L17.68 16.6C15.78 22.31 12.66 22.31 10.76 16.6L9.91999 14.08L7.39999 13.24C1.68999 11.34 1.68999 8.23003 7.39999 6.32003Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M10.11 13.6501L13.69 10.0601" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      
+    </div>
+    <div *ngIf="showConfirmationBox" >
+      
+        
+<div class="card"> 
+  <button type="button" class="dismiss" (click)="closeConfirmationBox()">×</button> 
+  <div class="header"> 
+    <div class="image">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#000000" d="M20 7L9.00004 18L3.99994 13"></path> </g></svg>
+      </div> 
+      <div class="content">
+        <span class="title">Feedback Recorded</span>
+        <p class="message">Your Feedback has been successfully recorded.</p>
+         </div> 
+         <div class="actions">
+            <button type="button" (click)="closeConfirmationBox()" class="history">OK</button> 
+       
+            </div> 
+            </div> 
+            </div>
+
+
+
+
+    

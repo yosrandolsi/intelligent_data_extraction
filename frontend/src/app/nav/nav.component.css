@@ -1,0 +1,24 @@
+.navbar {
+    background-color: #f2f2f2; /* Couleur gris très clair */
+    overflow: hidden;
+  }
+  
+  .logo img {
+    width: 50px; /* Ajustez la largeur de l'image selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'image et les liens */
+  }
+  
+  .navbar a {
+    float: left;
+    display: block;
+    color: #333; /* Couleur du texte */
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+  
+  .navbar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  

@@ -1,0 +1,106 @@
+.rating:not(:checked) > input {
+  position: absolute;
+  appearance: none;
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  cursor: pointer;
+  font-size: 30px;
+  fill: #666;
+}
+
+.rating:not(:checked) > label > svg {
+  fill: #666; /* Set default color for SVG */
+  transition: fill 0.3s ease; /* Add a transition effect */
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  fill: #e58e09;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  fill: #ff9e0b;
+}
+
+.rating > input:checked ~ label > svg {
+  fill: #ffa723; /* Set color for selected stars */
+}
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.card-subtitle {
+  color: #666;
+  font-size: 1rem;
+}
+
+.card-text {
+  color: #333;
+}
+.text-blue {
+  color: #3b85cc;;
+}
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+.feedback {
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedback-item {
+  flex: 0 0 48%;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f8f9fa;
+}
+
+.feedback-item h6 {
+  margin-bottom: 10px;
+}
+
+.feedback-value {
+  font-size: 1rem;
+}
+select {
+  /* Ajoutez vos styles ici */
+  width: 100%; /* Exemple: largeur à 100% */
+  padding: 10px; /* Exemple: ajout de rembourrage */
+  border: 1px solid #ccc; /* Exemple: bordure grise de 1px */
+  border-radius: 5px; /* Exemple: coins arrondis */
+  font-size: 16px; /* Exemple: taille de police */
+  background-color: #fff; /* Exemple: couleur de fond blanche */
+  color: #333; /* Exemple: couleur du texte */
+}
+select:hover {
+  border-color: #999; /* Changement de couleur de la bordure au survol */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ajout d'une ombre au survol */
+}
+select:focus {
+  outline: none; /* Supprime le contour lorsqu'il est en focus */
+  border-color: #007bff; /* Couleur de la bordure au focus */
+}

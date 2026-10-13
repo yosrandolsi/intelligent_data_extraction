@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+<div class="container" style="margin-top: 80px;">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="row">
+        <!-- Column for the list of evaluations -->
+        <div class="col-md-8">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="col-md-4">
+              <select [(ngModel)]="filterType" (change)="filterEvaluations()" class="form-select">
+                <option value="">Select a sort option</option>
+                <option value="badToExcellent">From Bad to Excellent</option>
+                <option value="excellentToBad">From Excellent to Bad</option>
+                <option value="recentDate">Most Recent Date</option>
+                <option value="oldDate">Oldest Date</option>
+              </select>
+            </div>
+            <div class="col-md-4 text-end" style="color: orange;">
+              <h5>Total Evaluations: {{ evaluations.length }}</h5>
+            </div>
+          </div>
+          <h2>List of evaluations</h2>
+          <div *ngFor="let evaluation of evaluations" class="card rounded-3 mb-4 border-0">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+              <h4 class="card-title m-0">Sent by <span class="text-blue">{{ evaluation.username }}</span></h4>
+              <small class="text-muted">{{ evaluation.extractionDate | date:'medium' }}</small>
+            </div>
+            <div class="card-body">
+              <div class="feedback">
+                <div class="feedback-item">
+                  <h6 class="mb-2" style="color: #1d61a2;">Note:</h6>
+                  <div class="feedback-value">{{ evaluation.note }}</div>
+                </div>
+                <div class="feedback-item">
+                  <h6 class="mb-2" style="color: #1d61a2;">Message:</h6>
+                  <div class="feedback-value">{{ evaluation.message }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Column for the chart -->
+        <div class="col-md-4">
+          <div class="col">
+            <h2>Summary of evaluations by note</h2>
+            <div style="max-width: 300px;">
+              <canvas id="doughnutChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

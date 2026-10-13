@@ -1,0 +1,67 @@
+/* Styles de base pour la barre de navigation */
+.navbar {
+    background-color: #333; /* Couleur de fond de la barre de navigation */
+    color: #fff; /* Couleur du texte */
+    padding: 15px 0; /* Espacement intérieur */
+  }
+  
+  .navbar .container {
+    display: flex;
+    justify-content: space-between; /* Alignement des éléments à l'extrémité des côtés */
+    align-items: center; /* Centrage vertical */
+  }
+  
+  .navbar .navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+  }
+  
+  .navbar ul {
+    list-style-type: none; /* Suppression des puces */
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .navbar ul li {
+    margin-left: 10px; /* Espacement entre les éléments de la liste */
+  }
+  
+  .navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px; /* Coins arrondis pour les liens */
+  }
+  
+  .navbar ul li a:hover {
+    background-color: #555; /* Couleur de fond au survol */
+  }
+  .gif-container {
+    width: 50%; /* Largeur de la moitié de l'interface */
+    display: flex;
+    justify-content: flex-end; /* Aligner le contenu à l'extrême droite */
+    align-items: center; /* Aligner verticalement le contenu */
+}
+
+.gif-img {
+    width: 120%; /* Le GIF prendra toute la largeur de son conteneur */
+    margin-top: -50px; 
+    height: 130%;/* Augmentation de l'espacement au-dessus de l'image */
+}
+  
+  
+  /* Style pour l'image à gauche */
+/* Ajustement de l'espacement */
+.row {
+    margin-top: 20px; /* ou toute valeur qui convient */
+}
+
+/* Style pour l'image à gauche */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Vous pouvez également ajuster les classes gif-container et gif-img si nécessaire */

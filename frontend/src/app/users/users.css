@@ -1,0 +1,27 @@
+.get-position-btn {
+
+  background-color: rgb(253, 177, 122);
+  color: #080710;
+
+}
+
+
+
+.table td {
+  padding: 20px; /* Adjust the padding to increase space between column content and borders */
+}
+.table th
+{
+ padding: 0px; /* Adjust the padding to increase space between column content and borders */
+}
+
+
+.container {
+  position: relative;
+    align-items: center;
+    height: 100vh;
+    width: 800px;
+
+    left: 20%;
+    padding: 30px;
+  }

@@ -1,0 +1,132 @@
+<section class="connexion">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block" style="margin-top: 80px;">
+              <img src="assets/images/c8.png" alt="Logo" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+          </div>
+          
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form (ngSubmit)="onLoggedin()">
+                  
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    <img src="assets/images/centro.png" alt="Votre logo" style="max-width: 350px; margin-left: -400px; margin-top: -70px;" />
+                    <h5 class="" style="letter-spacing: 1px; color: #1d61a2; font-size: 50px; margin-top: 50px;">Welcome back!</h5>
+                  </div>
+                 
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color:orange
+
+
+                  ;">Sign in to your account</h5>
+                
+                  <div class="form-outline mb-4">
+                    <input type="email" id="email" class="form-control form-control-lg" [(ngModel)]="user.username" name="username"  placeholder="Enter your username" style="font-size: medium;"/>
+                    <label class="form-label" for="email">Username</label>
+                  </div>
+                
+                  <div class="form-outline mb-4">
+                    <input type="password" id="password" class="form-control form-control-lg" [(ngModel)]="user.password" placeholder="Enter your password" style="font-size: medium;"  name="password"/>
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+                
+                  <div class="pt-1 mb-4">
+                  
+                    <button class="noselect custom-button" type="submit">
+                      <span class="text" style="align-items: center;">login</span>
+                      <span class="icon">
+                        <i class="fa-solid fa-plus" style="color: white;"></i>
+                      </span>
+                    </button>
+                  </div>
+                
+
+                  <a class="small text-muted" routerLink="/inscrit">Don't have an account? Sign Up</a>
+                </form>
+                
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="card" *ngIf="showErrorCard"  style="  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: rgba(255, 0, 0, 0.2);">
+    <button type="button" class="dismiss">×</button>
+    <div class="header">
+      <div class="image">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          Contenu de votre SVG 
+        </svg>
+      </div>
+      <div class="content">
+        <span class="title">Order validated</span>
+        <p class="message">Thank you for your purchase. Your package will be delivered within 2 days of your purchase.</p>
+      </div>
+      <div class="actions">
+        <button type="button" class="history">History</button>
+        <button type="button" class="track">Track my package</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+  <div class="header">
+    <div class="image"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+              </svg></div>
+    <div class="content">
+       <span class="title">Desactivate account</span>
+       <p class="message">Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.</p>
+    </div>
+     <div class="actions">
+       <button class="desactivate" type="button">Desactivate</button>
+       <button class="cancel" type="button">Cancel</button>
+    </div>
+  </div>
+  </div>
+
+-->
+
+
+
+<div class="card" *ngIf="showErrorCard" style="overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: white;"> <!-- Ajoutez la propriété background-color: white; ici -->
+    <div class="header">
+      <div class="image"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg></div>
+      <div class="content">
+        <span class="title">Invalid Data</span>
+        <p class="message">The data provided is invalid. Please contact the administrator and try again.</p>
+      </div>
+       <div class="actions">
+        <button class="desactivate" type="button" (click)="cancel()">OK</button>
+
+         
+      </div>
+    </div>
+    </div>
+</section>
